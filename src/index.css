@@ -2,41 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Archive System Design System - Professional warehouse management interface */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 0 0% 98%;
+    --foreground: 222 84% 10%;
 
+    /* Card system */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 84% 10%;
 
+    /* Popover system */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 222 84% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
+    /* Primary - Deep professional blue */
+    --primary: 220 70% 18%;
     --primary-foreground: 210 40% 98%;
+    --primary-glow: 220 70% 25%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Clean neutral */
+    --secondary: 220 20% 96%;
+    --secondary-foreground: 222 47% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Success - File IN status */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    --success-light: 142 76% 94%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Warning - File OUT status */
+    --warning: 25 95% 53%;
+    --warning-foreground: 0 0% 98%;
+    --warning-light: 25 95% 96%;
 
-    --destructive: 0 84.2% 60.2%;
+    /* Muted elements */
+    --muted: 220 13% 91%;
+    --muted-foreground: 220 9% 46%;
+
+    /* Accent for interactive elements */
+    --accent: 220 70% 95%;
+    --accent-foreground: 220 70% 18%;
+
+    /* Destructive states */
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Form elements */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 70% 18%;
 
-    --radius: 0.5rem;
+    /* Beautiful gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(220 70% 18%), hsl(220 70% 25%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 42%));
+    --gradient-warning: linear-gradient(135deg, hsl(25 95% 53%), hsl(25 95% 60%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 70% 18%) 0%, hsl(220 70% 25%) 100%);
+
+    /* Professional shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(220 70% 18% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(220 70% 18% / 0.1), 0 2px 4px -1px hsl(220 70% 18% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(220 70% 18% / 0.1), 0 4px 6px -2px hsl(220 70% 18% / 0.05);
+    --shadow-glow: 0 0 20px hsl(220 70% 25% / 0.15);
+    
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +134,84 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Custom animations for the archive system */
+  .scan-pulse {
+    animation: scan-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .status-bounce {
+    animation: status-bounce 1s ease-in-out;
+  }
+
+  .slide-in {
+    animation: slide-in 0.3s ease-out;
+  }
+}
+
+@layer components {
+  /* Status indicators */
+  .status-in {
+    @apply bg-success text-success-foreground;
+  }
+  
+  .status-out {
+    @apply bg-warning text-warning-foreground;
+  }
+
+  .status-in-light {
+    @apply bg-success-light text-success border border-success/20;
+  }
+  
+  .status-out-light {
+    @apply bg-warning-light text-warning border border-warning/20;
+  }
+
+  /* Professional shadows */
+  .shadow-professional {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@keyframes scan-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes status-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
